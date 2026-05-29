@@ -1,0 +1,44 @@
+# ───── Java / Spring Boot ─────
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+HELP.md
+spring-boot-*.log
+
+# ───── Flutter ─────
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+*.iml
+.pub-cache/
+.pub/
+/android/.gradle/
+/android/local.properties
+/android/app/google-services.json
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
+/ios/Runner.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# ───── IDEs ─────
+.idea/
+.vscode/
+*.iws
+*.ipr
+
+# ───── Sistema operativo ─────
+.DS_Store
+Thumbs.db
+*.swp
+
+# ───── Variables de entorno ─────
+.env
+.env.local
+
