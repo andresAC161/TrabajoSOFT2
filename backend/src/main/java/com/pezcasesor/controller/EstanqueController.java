@@ -1,5 +1,6 @@
 package com.pezcasesor.controller;
 
+import com.pezcasesor.model.EstanqueEditarDTO;
 import com.pezcasesor.model.EstanqueRegistroDTO;
 import com.pezcasesor.model.EstanqueRespuestaDTO;
 import com.pezcasesor.service.EstanqueService;
@@ -31,5 +32,17 @@ public class EstanqueController {
     @GetMapping("/{id}")
     public ResponseEntity<EstanqueRespuestaDTO> buscar(@PathVariable Long id) {
         return ResponseEntity.ok(estanqueService.buscarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EstanqueRespuestaDTO> editar(@PathVariable Long id,
+                                                       @RequestBody EstanqueEditarDTO dto) {
+        return ResponseEntity.ok(estanqueService.editar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        estanqueService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }
