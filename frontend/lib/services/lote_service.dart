@@ -25,4 +25,9 @@ class LoteService {
     final json = await _api.get('/lotes?estanqueId=$estanqueId');
     return (json as List).map((e) => Lote.fromJson(e)).toList();
   }
+
+  Future<Lote> finalizar(int loteId) async {
+    final json = await _api.patch('/lotes/$loteId/finalizar');
+    return Lote.fromJson(json);
+  }
 }

@@ -7,6 +7,7 @@ import com.pezcasesor.model.LoteEstado;
 import com.pezcasesor.repository.LoteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,20 @@ public class LoteService {
         Lote guardado = loteRepository.save(lote);
         estanqueService.ocupar(dto.getEstanqueId());
         return toDTO(guardado);
+    }
+
+    @Transactional
+    public LoteRespuestaDTO finalizar(Long loteId) {
+        Lote lote = loteRepository.findById(loteId)
+            .orElseThrow(() -> new IllegalArgumentException("Lote no encontrado."));
+        if (lote.getEstado() == LoteEstado.finalizado) {
+            throw new IllegalStateException("El lote ya está finalizado.");
+        }
+        lote.setEstado(LoteEstado.finalizado);
+        lote.setFechaFin(LocalDate.now());
+        loteRepository.save(lote);
+        estanqueService.liberar(lote.getEstanqueId());
+        return toDTO(lote);
     }
 
     public List<LoteRespuestaDTO> listarPorEstanque(Long estanqueId) {

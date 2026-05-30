@@ -27,4 +27,9 @@ public class LoteController {
     public ResponseEntity<List<LoteRespuestaDTO>> listar(@RequestParam Long estanqueId) {
         return ResponseEntity.ok(loteService.listarPorEstanque(estanqueId));
     }
+
+    @PatchMapping("/{id}/finalizar")
+    public ResponseEntity<LoteRespuestaDTO> finalizar(@PathVariable Long id) {
+        return ResponseEntity.ok(loteService.finalizar(id));
+    }
 }
