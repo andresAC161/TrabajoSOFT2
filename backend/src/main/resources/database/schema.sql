@@ -62,3 +62,19 @@ CREATE TABLE IF NOT EXISTS notificaciones (
     leida           BOOLEAN      NOT NULL DEFAULT FALSE,
     fecha_envio     TIMESTAMP    NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS notas (
+    nota_id    BIGSERIAL PRIMARY KEY,
+    lote_id    BIGINT    NOT NULL REFERENCES lotes(lote_id) ON DELETE CASCADE,
+    contenido  TEXT      NOT NULL,
+    fecha_hora TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS registros_crecimiento (
+    registro_id     BIGSERIAL PRIMARY KEY,
+    lote_id         BIGINT        NOT NULL REFERENCES lotes(lote_id) ON DELETE CASCADE,
+    peso_promedio_g NUMERIC(8,2)  NOT NULL,
+    talla_cm        NUMERIC(6,2),
+    mortalidad      INT,
+    fecha_muestreo  DATE          NOT NULL
+);
