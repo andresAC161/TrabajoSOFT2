@@ -44,9 +44,11 @@ class _ProgramarTareaScreenState extends State<ProgramarTareaScreen> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (fecha == null || !mounted) return;
-    final hora = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    final hora =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (hora == null) return;
-    final dt = DateTime(fecha.year, fecha.month, fecha.day, hora.hour, hora.minute);
+    final dt =
+        DateTime(fecha.year, fecha.month, fecha.day, hora.hour, hora.minute);
     _fechaCtrl.text = dt.toIso8601String().substring(0, 16);
   }
 
@@ -58,7 +60,9 @@ class _ProgramarTareaScreenState extends State<ProgramarTareaScreen> {
         usuarioId: widget.usuarioId,
         estanqueId: _estanqueIdSeleccionado,
         nombre: _nombreCtrl.text.trim(),
-        descripcion: _descripcionCtrl.text.trim().isEmpty ? null : _descripcionCtrl.text.trim(),
+        descripcion: _descripcionCtrl.text.trim().isEmpty
+            ? null
+            : _descripcionCtrl.text.trim(),
         fechaHora: _fechaCtrl.text.trim(),
       );
       if (!mounted) return;
@@ -88,13 +92,16 @@ class _ProgramarTareaScreenState extends State<ProgramarTareaScreen> {
             children: [
               TextFormField(
                 controller: _nombreCtrl,
-                decoration: const InputDecoration(labelText: 'Nombre de la tarea *'),
-                validator: (v) => v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
+                decoration:
+                    const InputDecoration(labelText: 'Nombre de la tarea *'),
+                validator: (v) =>
+                    v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _descripcionCtrl,
-                decoration: const InputDecoration(labelText: 'Descripción (opcional)'),
+                decoration:
+                    const InputDecoration(labelText: 'Descripción (opcional)'),
                 maxLines: 2,
               ),
               const SizedBox(height: 12),
@@ -106,15 +113,19 @@ class _ProgramarTareaScreenState extends State<ProgramarTareaScreen> {
                 ),
                 readOnly: true,
                 onTap: _seleccionarFechaHora,
-                validator: (v) => v == null || v.trim().isEmpty ? 'Seleccione fecha y hora' : null,
+                validator: (v) => v == null || v.trim().isEmpty
+                    ? 'Seleccione fecha y hora'
+                    : null,
               ),
               const SizedBox(height: 12),
               if (_estanques.isNotEmpty)
                 DropdownButtonFormField<int?>(
-                  value: _estanqueIdSeleccionado,
-                  decoration: const InputDecoration(labelText: 'Estanque asociado (opcional)'),
+                  initialValue: _estanqueIdSeleccionado,
+                  decoration: const InputDecoration(
+                      labelText: 'Estanque asociado (opcional)'),
                   items: [
-                    const DropdownMenuItem(value: null, child: Text('Sin estanque')),
+                    const DropdownMenuItem(
+                        value: null, child: Text('Sin estanque')),
                     ..._estanques.map((e) => DropdownMenuItem(
                           value: e.id,
                           child: Text(e.nombre),

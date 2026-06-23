@@ -1,0 +1,41 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-06-03T14:19:11.797-05:00  INFO 26364 --- [           main] com.pezcasesor.PezcasesorApplication     : Starting PezcasesorApplication v0.0.1-SNAPSHOT using Java 24.0.1 with PID 26364 (C:\DANIEL\UNIVERSIDAD DE LIMA\CICLO 2026-1\SOFTWARE 2\PROYECTO FINAL\Grupo3\TrabajoSOFT2\backend\target\pezcasesor-0.0.1-SNAPSHOT.jar started by USER in C:\DANIEL\UNIVERSIDAD DE LIMA\CICLO 2026-1\SOFTWARE 2\PROYECTO FINAL\Grupo3\TrabajoSOFT2\backend)
+2026-06-03T14:19:11.802-05:00  INFO 26364 --- [           main] com.pezcasesor.PezcasesorApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-03T14:19:12.879-05:00  INFO 26364 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-03T14:19:12.965-05:00  INFO 26364 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76 ms. Found 6 JPA repository interfaces.
+2026-06-03T14:19:14.012-05:00  INFO 26364 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-03T14:19:14.028-05:00  INFO 26364 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-03T14:19:14.029-05:00  INFO 26364 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-06-03T14:19:14.083-05:00  INFO 26364 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-03T14:19:14.084-05:00  INFO 26364 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2233 ms
+2026-06-03T14:19:14.433-05:00  INFO 26364 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-03T14:19:14.780-05:00  INFO 26364 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f0ce0d1
+2026-06-03T14:19:14.782-05:00  INFO 26364 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-03T14:19:15.170-05:00  INFO 26364 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-03T14:19:15.269-05:00  INFO 26364 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2026-06-03T14:19:15.320-05:00  INFO 26364 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-03T14:19:15.641-05:00  INFO 26364 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-03T14:19:16.866-05:00  INFO 26364 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-03T14:19:16.869-05:00  INFO 26364 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-03T14:19:18.119-05:00  WARN 26364 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-03T14:19:18.237-05:00  WARN 26364 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 45e91bc5-770e-40d9-a237-922b05599396
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-03T14:19:18.489-05:00  INFO 26364 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ede428e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@70a8654, org.springframework.security.web.context.SecurityContextHolderFilter@63024843, org.springframework.security.web.header.HeaderWriterFilter@77afdbc5, org.springframework.web.filter.CorsFilter@671c71e8, org.springframework.security.web.authentication.logout.LogoutFilter@f461c9c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e4ac3f5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@624268ab, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d5176d6, org.springframework.security.web.access.ExceptionTranslationFilter@3941bdd7, org.springframework.security.web.access.intercept.AuthorizationFilter@5dfb078]
+2026-06-03T14:19:19.492-05:00  INFO 26364 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-06-03T14:19:19.595-05:00  INFO 26364 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-06-03T14:19:19.607-05:00  INFO 26364 --- [           main] com.pezcasesor.PezcasesorApplication     : Started PezcasesorApplication in 8.283 seconds (process running for 8.868)
+2026-06-03T14:20:07.373-05:00  INFO 26364 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-03T14:20:07.374-05:00  INFO 26364 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-03T14:20:07.375-05:00  INFO 26364 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

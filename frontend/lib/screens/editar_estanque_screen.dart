@@ -24,8 +24,10 @@ class _EditarEstanqueScreenState extends State<EditarEstanqueScreen> {
   void initState() {
     super.initState();
     _nombreCtrl = TextEditingController(text: widget.estanque.nombre);
-    _capacidadCtrl = TextEditingController(text: widget.estanque.capacidadLitros);
-    _localizacionCtrl = TextEditingController(text: widget.estanque.localizacion ?? '');
+    _capacidadCtrl =
+        TextEditingController(text: widget.estanque.capacidadLitros);
+    _localizacionCtrl =
+        TextEditingController(text: widget.estanque.localizacion ?? '');
     _tipoAgua = widget.estanque.tipoAgua;
   }
 
@@ -68,11 +70,12 @@ class _EditarEstanqueScreenState extends State<EditarEstanqueScreen> {
               TextFormField(
                 controller: _nombreCtrl,
                 decoration: const InputDecoration(labelText: 'Nombre *'),
-                validator: (v) => v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
+                validator: (v) =>
+                    v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _tipoAgua,
+                initialValue: _tipoAgua,
                 decoration: const InputDecoration(labelText: 'Tipo de agua'),
                 items: const [
                   DropdownMenuItem(value: 'dulce', child: Text('Dulce')),
@@ -84,10 +87,12 @@ class _EditarEstanqueScreenState extends State<EditarEstanqueScreen> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _capacidadCtrl,
-                decoration: const InputDecoration(labelText: 'Capacidad (litros) *'),
+                decoration:
+                    const InputDecoration(labelText: 'Capacidad (litros) *'),
                 keyboardType: TextInputType.number,
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'Ingrese la capacidad';
+                  if (v == null || v.trim().isEmpty)
+                    return 'Ingrese la capacidad';
                   final num = double.tryParse(v.trim());
                   if (num == null) return 'Ingrese un número válido';
                   if (num <= 0) return 'La capacidad debe ser mayor a 0';

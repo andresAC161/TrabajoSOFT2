@@ -24,7 +24,8 @@ class _EditarTareaScreenState extends State<EditarTareaScreen> {
   void initState() {
     super.initState();
     _nombreCtrl = TextEditingController(text: widget.tarea.nombre);
-    _descripcionCtrl = TextEditingController(text: widget.tarea.descripcion ?? '');
+    _descripcionCtrl =
+        TextEditingController(text: widget.tarea.descripcion ?? '');
     _fechaCtrl = TextEditingController(
       text: widget.tarea.fechaHora.substring(0, 16),
     );
@@ -38,9 +39,11 @@ class _EditarTareaScreenState extends State<EditarTareaScreen> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (fecha == null || !mounted) return;
-    final hora = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    final hora =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (hora == null) return;
-    final dt = DateTime(fecha.year, fecha.month, fecha.day, hora.hour, hora.minute);
+    final dt =
+        DateTime(fecha.year, fecha.month, fecha.day, hora.hour, hora.minute);
     _fechaCtrl.text = dt.toIso8601String().substring(0, 16);
   }
 
@@ -83,7 +86,8 @@ class _EditarTareaScreenState extends State<EditarTareaScreen> {
               TextFormField(
                 controller: _nombreCtrl,
                 decoration: const InputDecoration(labelText: 'Nombre *'),
-                validator: (v) => v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
+                validator: (v) =>
+                    v == null || v.trim().isEmpty ? 'Ingrese el nombre' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
@@ -100,17 +104,22 @@ class _EditarTareaScreenState extends State<EditarTareaScreen> {
                 ),
                 readOnly: true,
                 onTap: _seleccionarFechaHora,
-                validator: (v) => v == null || v.trim().isEmpty ? 'Seleccione fecha y hora' : null,
+                validator: (v) => v == null || v.trim().isEmpty
+                    ? 'Seleccione fecha y hora'
+                    : null,
               ),
               if (widget.tarea.estado == 'pendiente') ...[
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: _nuevoEstado,
-                  decoration: const InputDecoration(labelText: 'Cambiar estado (opcional)'),
+                  initialValue: _nuevoEstado,
+                  decoration: const InputDecoration(
+                      labelText: 'Cambiar estado (opcional)'),
                   hint: const Text('Sin cambio'),
                   items: const [
-                    DropdownMenuItem(value: 'completada', child: Text('Completada')),
-                    DropdownMenuItem(value: 'cancelada', child: Text('Cancelada')),
+                    DropdownMenuItem(
+                        value: 'completada', child: Text('Completada')),
+                    DropdownMenuItem(
+                        value: 'cancelada', child: Text('Cancelada')),
                   ],
                   onChanged: (v) => setState(() => _nuevoEstado = v),
                 ),

@@ -35,10 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (_) => SimpleDialog(
         title: Text(titulo),
-        children: _estanques.map((e) => SimpleDialogOption(
-          onPressed: () => Navigator.pop(context, e.id),
-          child: Text('${e.nombre}  ·  ${e.estado}'),
-        )).toList(),
+        children: _estanques
+            .map((e) => SimpleDialogOption(
+                  onPressed: () => Navigator.pop(context, e.id),
+                  child: Text('${e.nombre}  ·  ${e.estado}'),
+                ))
+            .toList(),
       ),
     );
   }
@@ -48,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _cargarEstanques();
     _verificarNotificaciones();
-    _timer = Timer.periodic(const Duration(seconds: 30), (_) => _verificarNotificaciones());
+    _timer = Timer.periodic(
+        const Duration(seconds: 30), (_) => _verificarNotificaciones());
   }
 
   @override
@@ -93,7 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => NotificacionesScreen(usuarioId: widget.usuario.id),
+                  builder: (_) =>
+                      NotificacionesScreen(usuarioId: widget.usuario.id),
                 ),
               );
             },
@@ -137,7 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => NotificacionesScreen(usuarioId: widget.usuario.id),
+                      builder: (_) =>
+                          NotificacionesScreen(usuarioId: widget.usuario.id),
                     ),
                   );
                   _verificarNotificaciones();
@@ -153,7 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.red,
                       shape: BoxShape.circle,
                     ),
-                    constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                    constraints:
+                        const BoxConstraints(minWidth: 16, minHeight: 16),
                     child: Text(
                       '$_notificacionesNoLeidas',
                       style: const TextStyle(color: Colors.white, fontSize: 10),
@@ -174,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _SectionTitle('Módulos'),
+            const _SectionTitle('Módulos'),
             _MenuTile(
               icon: Icons.water,
               label: 'Registrar estanque',
@@ -182,7 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 final ok = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => RegistrarEstanqueScreen(usuarioId: widget.usuario.id),
+                    builder: (_) =>
+                        RegistrarEstanqueScreen(usuarioId: widget.usuario.id),
                   ),
                 );
                 if (ok == true) _cargarEstanques();
@@ -194,7 +201,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => ProgramarTareaScreen(usuarioId: widget.usuario.id),
+                  builder: (_) =>
+                      ProgramarTareaScreen(usuarioId: widget.usuario.id),
                 ),
               ),
             ),
@@ -205,9 +213,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () async {
                   final id = await _elegirEstanque('Selecciona un estanque');
                   if (id == null || !mounted) return;
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (_) => RegistrarParametrosScreen(estanqueId: id, usuarioId: widget.usuario.id),
-                  ));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => RegistrarParametrosScreen(
+                            estanqueId: id, usuarioId: widget.usuario.id),
+                      ));
                 },
               ),
               _MenuTile(
@@ -216,14 +227,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () async {
                   final id = await _elegirEstanque('Selecciona un estanque');
                   if (id == null || !mounted) return;
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (_) => RegistrarLoteScreen(estanqueId: id),
-                  ));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => RegistrarLoteScreen(estanqueId: id),
+                      ));
                 },
               ),
             ],
             const SizedBox(height: 24),
-            _SectionTitle('Mis estanques'),
+            const _SectionTitle('Mis estanques'),
             if (_cargando)
               const Center(child: CircularProgressIndicator())
             else if (_estanques.isEmpty)
@@ -243,7 +256,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => DetalleEstanqueScreen(estanqueId: e.id, usuarioId: widget.usuario.id),
+                          builder: (_) => DetalleEstanqueScreen(
+                              estanqueId: e.id, usuarioId: widget.usuario.id),
                         ),
                       );
                       _cargarEstanques();
@@ -266,7 +280,8 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Text(text, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      child: Text(text,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 }
@@ -275,7 +290,8 @@ class _MenuTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
-  const _MenuTile({required this.icon, required this.label, required this.onTap});
+  const _MenuTile(
+      {required this.icon, required this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

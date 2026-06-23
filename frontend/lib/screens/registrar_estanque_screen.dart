@@ -6,7 +6,8 @@ class RegistrarEstanqueScreen extends StatefulWidget {
   const RegistrarEstanqueScreen({super.key, required this.usuarioId});
 
   @override
-  State<RegistrarEstanqueScreen> createState() => _RegistrarEstanqueScreenState();
+  State<RegistrarEstanqueScreen> createState() =>
+      _RegistrarEstanqueScreenState();
 }
 
 class _RegistrarEstanqueScreenState extends State<RegistrarEstanqueScreen> {
@@ -39,7 +40,8 @@ class _RegistrarEstanqueScreenState extends State<RegistrarEstanqueScreen> {
       Navigator.pop(context, true);
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
@@ -58,11 +60,12 @@ class _RegistrarEstanqueScreenState extends State<RegistrarEstanqueScreen> {
               TextFormField(
                 controller: _nombreCtrl,
                 decoration: const InputDecoration(labelText: 'Nombre'),
-                validator: (v) => v == null || v.isEmpty ? 'Ingrese el nombre' : null,
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Ingrese el nombre' : null,
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _tipoAgua,
+                initialValue: _tipoAgua,
                 decoration: const InputDecoration(labelText: 'Tipo de agua'),
                 items: const [
                   DropdownMenuItem(value: 'dulce', child: Text('Dulce')),
@@ -74,10 +77,12 @@ class _RegistrarEstanqueScreenState extends State<RegistrarEstanqueScreen> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _capacidadCtrl,
-                decoration: const InputDecoration(labelText: 'Capacidad (litros)'),
+                decoration:
+                    const InputDecoration(labelText: 'Capacidad (litros)'),
                 keyboardType: TextInputType.number,
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'Ingrese la capacidad';
+                  if (v == null || v.trim().isEmpty)
+                    return 'Ingrese la capacidad';
                   final num = double.tryParse(v.trim());
                   if (num == null) return 'Ingrese un número válido';
                   if (num <= 0) return 'La capacidad debe ser mayor a 0';
@@ -87,7 +92,8 @@ class _RegistrarEstanqueScreenState extends State<RegistrarEstanqueScreen> {
               const SizedBox(height: 12),
               TextFormField(
                 controller: _localizacionCtrl,
-                decoration: const InputDecoration(labelText: 'Localización (opcional)'),
+                decoration:
+                    const InputDecoration(labelText: 'Localización (opcional)'),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
