@@ -58,6 +58,17 @@ public class TareaService {
         return tareaRepository.findByUsuarioId(usuarioId)
             .stream().map(this::toDTO).collect(Collectors.toList());
     }
+    
+    public List<TareaRespuestaDTO> listarPorUsuarioYEstado(Long usuarioId, String estadoTexto) {
+        TareaEstado estado;
+        try {
+            estado = TareaEstado.valueOf(estadoTexto.toLowerCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Estado no válido: " + estadoTexto);
+        }
+        return tareaRepository.findByUsuarioIdAndEstado(usuarioId, estado)
+            .stream().map(this::toDTO).collect(Collectors.toList());
+    }
 
     TareaRespuestaDTO toDTO(Tarea t) {
         return new TareaRespuestaDTO(

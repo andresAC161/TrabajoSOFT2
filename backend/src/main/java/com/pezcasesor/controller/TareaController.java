@@ -25,7 +25,12 @@ public class TareaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TareaRespuestaDTO>> listar(@RequestParam Long usuarioId) {
+    public ResponseEntity<List<TareaRespuestaDTO>> listar(
+            @RequestParam Long usuarioId,
+            @RequestParam(required = false) String estado) {
+        if (estado != null) {
+            return ResponseEntity.ok(tareaService.listarPorUsuarioYEstado(usuarioId, estado));
+        }
         return ResponseEntity.ok(tareaService.listarPorUsuario(usuarioId));
     }
 

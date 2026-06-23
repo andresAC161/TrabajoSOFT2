@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
     List<Tarea> findByUsuarioId(Long usuarioId);
+    List<Tarea> findByUsuarioIdAndEstado(Long usuarioId, TareaEstado estado);
     List<Tarea> findByEstadoAndNotificadoFalseAndFechaHoraBetween(
         TareaEstado estado, LocalDateTime desde, LocalDateTime hasta);
 }
