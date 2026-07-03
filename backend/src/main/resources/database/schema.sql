@@ -78,3 +78,10 @@ CREATE TABLE IF NOT EXISTS registros_crecimiento (
     mortalidad      INT,
     fecha_muestreo  DATE          NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS bitacora (
+    bitacora_id    BIGSERIAL PRIMARY KEY,
+    usuario_id     BIGINT       NOT NULL REFERENCES usuarios(usuario_id),
+    accion         VARCHAR(200) NOT NULL,
+    fecha_registro TIMESTAMP    NOT NULL DEFAULT NOW()
+);
