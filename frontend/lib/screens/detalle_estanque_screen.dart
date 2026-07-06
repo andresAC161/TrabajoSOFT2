@@ -6,6 +6,7 @@ import '../services/estanque_service.dart';
 import '../services/lote_service.dart';
 import '../services/parametro_agua_service.dart';
 import 'editar_estanque_screen.dart';
+import 'notas_lote_screen.dart';
 import 'registrar_lote_screen.dart';
 import 'registrar_parametros_screen.dart';
 
@@ -91,6 +92,19 @@ class _DetalleEstanqueScreenState extends State<DetalleEstanqueScreen> {
     }
   }
 
+  void _abrirNotas(Lote lote) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => NotasLoteScreen(
+          loteId: lote.id,
+          especie: lote.especie,
+          activo: lote.estado == 'activo',
+        ),
+      ),
+    );
+  }
+
   Future<void> _eliminar() async {
     final confirmar = await showDialog<bool>(
       context: context,
@@ -173,12 +187,23 @@ class _DetalleEstanqueScreenState extends State<DetalleEstanqueScreen> {
                     title: Text(l.especie),
                     subtitle: Text('${l.cantidad} peces · ${l.estado}'
                         '${l.fechaFin != null ? ' · Fin: ${l.fechaFin}' : ''}'),
-                    trailing: l.estado == 'activo'
-                        ? TextButton(
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.sticky_note_2_outlined),
+                          tooltip: 'Notas',
+                          color: Colors.teal,
+                          onPressed: () => _abrirNotas(l),
+                        ),
+                        if (l.estado == 'activo')
+                          TextButton(
                             onPressed: () => _finalizarLote(l),
                             child: const Text('Finalizar', style: TextStyle(color: Colors.red)),
-                          )
-                        : null,
+                          ),
+                      ],
+                    ),
+                    onTap: () => _abrirNotas(l),
                   ),
                 )),
             const SizedBox(height: 16),
