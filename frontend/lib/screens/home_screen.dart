@@ -13,6 +13,7 @@ import 'registrar_estanque_screen.dart';
 import 'registrar_lote_screen.dart';
 import 'registrar_parametros_screen.dart';
 import 'registro_screen.dart';
+import 'tareas_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Usuario usuario;
@@ -203,6 +204,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 MaterialPageRoute(
                   builder: (_) =>
                       ProgramarTareaScreen(usuarioId: widget.usuario.id),
+                ),
+              ),
+            ),
+            _MenuTile(
+              icon: Icons.checklist,
+              label: 'Ver tareas',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => TareasScreen(usuarioId: widget.usuario.id),
                 ),
               ),
             ),
