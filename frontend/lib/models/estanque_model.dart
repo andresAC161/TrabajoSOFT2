@@ -7,6 +7,7 @@ class Estanque {
   final String? localizacion;
   final String estado;
   final String fechaCreacion;
+  final bool alertaActiva;
 
   Estanque({
     required this.id,
@@ -17,6 +18,7 @@ class Estanque {
     this.localizacion,
     required this.estado,
     required this.fechaCreacion,
+    this.alertaActiva = false,
   });
 
   factory Estanque.fromJson(Map<String, dynamic> json) => Estanque(
@@ -28,5 +30,6 @@ class Estanque {
         localizacion: json['localizacion'],
         estado: json['estado'],
         fechaCreacion: json['fechaCreacion'],
+        alertaActiva: json['alertaActiva'] ?? false,
       );
 }

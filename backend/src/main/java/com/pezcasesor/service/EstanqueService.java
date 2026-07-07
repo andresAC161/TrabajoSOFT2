@@ -8,6 +8,8 @@ import com.pezcasesor.model.EstanqueEstado;
 import com.pezcasesor.model.LoteEstado;
 import com.pezcasesor.repository.EstanqueRepository;
 import com.pezcasesor.repository.LoteRepository;
+import com.pezcasesor.repository.ParametroAguaRepository;
+import com.pezcasesor.repository.AlertaRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,10 +20,16 @@ public class EstanqueService {
 
     private final EstanqueRepository estanqueRepository;
     private final LoteRepository loteRepository;
+    private final ParametroAguaRepository parametroAguaRepository;
+    private final AlertaRepository alertaRepository;
 
-    public EstanqueService(EstanqueRepository estanqueRepository, LoteRepository loteRepository) {
+    public EstanqueService(EstanqueRepository estanqueRepository, LoteRepository loteRepository,
+                            ParametroAguaRepository parametroAguaRepository,
+                            AlertaRepository alertaRepository) {
         this.estanqueRepository = estanqueRepository;
         this.loteRepository = loteRepository;
+        this.parametroAguaRepository = parametroAguaRepository;
+        this.alertaRepository = alertaRepository;
     }
 
     public EstanqueRespuestaDTO registrar(EstanqueRegistroDTO dto) {
@@ -90,7 +98,13 @@ public class EstanqueService {
         return new EstanqueRespuestaDTO(
             e.getId(), e.getUsuarioId(), e.getNombre(), e.getTipoAgua(),
             e.getCapacidadLitros(), e.getLocalizacion(),
-            e.getEstado().name(), e.getFechaCreacion()
+            e.getEstado().name(), e.getFechaCreacion(), tieneAlertaActiva(e.getId())
         );
+    }
+
+    private boolean tieneAlertaActiva(Long estanqueId) {
+        return parametroAguaRepository.findFirstByEstanqueIdOrderByFechaRegistroDesc(estanqueId)
+            .map(p -> alertaRepository.existsByParametroId(p.getId()))
+            .orElse(false);
     }
 }

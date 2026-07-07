@@ -85,3 +85,11 @@ CREATE TABLE IF NOT EXISTS bitacora (
     accion         VARCHAR(200) NOT NULL,
     fecha_registro TIMESTAMP    NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS alertas (
+    alerta_id      BIGSERIAL PRIMARY KEY,
+    estanque_id    BIGINT       NOT NULL REFERENCES estanques(estanque_id) ON DELETE CASCADE,
+    parametro_id   BIGINT       REFERENCES parametros_agua(parametro_id) ON DELETE CASCADE,
+    mensaje        VARCHAR(200) NOT NULL,
+    fecha_registro TIMESTAMP    NOT NULL DEFAULT NOW()
+);

@@ -2,6 +2,7 @@ package com.pezcasesor.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ParametroAguaRespuestaDTO {
     private Long id;
@@ -12,14 +13,16 @@ public class ParametroAguaRespuestaDTO {
     private BigDecimal oxigenoMgl;
     private BigDecimal amoniacoMgl;
     private LocalDateTime fechaRegistro;
+    private List<String> alertas;
 
     public ParametroAguaRespuestaDTO(Long id, Long estanqueId, Long usuarioId,
                                      BigDecimal ph, BigDecimal temperaturaC,
                                      BigDecimal oxigenoMgl, BigDecimal amoniacoMgl,
-                                     LocalDateTime fechaRegistro) {
+                                     LocalDateTime fechaRegistro, List<String> alertas) {
         this.id = id; this.estanqueId = estanqueId; this.usuarioId = usuarioId;
         this.ph = ph; this.temperaturaC = temperaturaC; this.oxigenoMgl = oxigenoMgl;
         this.amoniacoMgl = amoniacoMgl; this.fechaRegistro = fechaRegistro;
+        this.alertas = alertas;
     }
 
     public Long getId() { return id; }
@@ -30,4 +33,5 @@ public class ParametroAguaRespuestaDTO {
     public BigDecimal getOxigenoMgl() { return oxigenoMgl; }
     public BigDecimal getAmoniacoMgl() { return amoniacoMgl; }
     public LocalDateTime getFechaRegistro() { return fechaRegistro; }
+    public List<String> getAlertas() { return alertas; }
 }

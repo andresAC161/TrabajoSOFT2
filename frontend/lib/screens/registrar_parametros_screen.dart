@@ -36,7 +36,7 @@ class _RegistrarParametrosScreenState extends State<RegistrarParametrosScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _cargando = true);
     try {
-      await _service.registrar(
+      final resultado = await _service.registrar(
         estanqueId: widget.estanqueId,
         usuarioId: widget.usuarioId,
         temperaturaC: _tempCtrl.text.trim(),
@@ -45,9 +45,14 @@ class _RegistrarParametrosScreenState extends State<RegistrarParametrosScreen> {
         amoniacoMgl: _nh3Ctrl.text.trim(),
       );
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Parámetros registrados correctamente')),
-      );
+      if (resultado.alertas.isNotEmpty) {
+        await _mostrarAlerta(resultado.alertas);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Parámetros registrados correctamente')),
+        );
+      }
+      if (!mounted) return;
       Navigator.pop(context, true);
     } catch (e) {
       if (!mounted) return;
@@ -57,6 +62,39 @@ class _RegistrarParametrosScreenState extends State<RegistrarParametrosScreen> {
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
+  }
+
+  Future<void> _mostrarAlerta(List<String> alertas) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: Colors.red.shade50,
+        title: Row(
+          children: const [
+            Icon(Icons.warning_amber_rounded, color: Colors.red),
+            SizedBox(width: 8),
+            Text('¡Alerta de emergencia!', style: TextStyle(color: Colors.red)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: alertas
+              .map((a) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text('• $a', style: const TextStyle(color: Colors.red)),
+                  ))
+              .toList(),
+        ),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Entendido'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

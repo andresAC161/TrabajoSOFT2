@@ -7,12 +7,14 @@ public class UmbralesAlerta {
     public static final double TEMPERATURA_MIN_TRUCHA = 10.0;
     public static final double TEMPERATURA_MAX_TRUCHA = 18.0;
     public static final double OXIGENO_MIN_TRUCHA = 6.0;
+    public static final double AMONIACO_MAX_TRUCHA = 0.02;
 
     public static final double PH_MIN_TILAPIA = 6.0;
     public static final double PH_MAX_TILAPIA = 9.0;
     public static final double TEMPERATURA_MIN_TILAPIA = 25.0;
     public static final double TEMPERATURA_MAX_TILAPIA = 32.0;
     public static final double OXIGENO_MIN_TILAPIA = 4.0;
+    public static final double AMONIACO_MAX_TILAPIA = 0.5;
 
     public static boolean phFueraDeRango(String especie, double ph) {
         return switch (especie.toLowerCase()) {
@@ -34,6 +36,14 @@ public class UmbralesAlerta {
         return switch (especie.toLowerCase()) {
             case "trucha"  -> oxigeno < OXIGENO_MIN_TRUCHA;
             case "tilapia" -> oxigeno < OXIGENO_MIN_TILAPIA;
+            default        -> false;
+        };
+    }
+
+    public static boolean amoniacoFueraDeRango(String especie, double amoniaco) {
+        return switch (especie.toLowerCase()) {
+            case "trucha"  -> amoniaco > AMONIACO_MAX_TRUCHA;
+            case "tilapia" -> amoniaco > AMONIACO_MAX_TILAPIA;
             default        -> false;
         };
     }
