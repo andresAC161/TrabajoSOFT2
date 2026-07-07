@@ -247,10 +247,24 @@ class _HomeScreenState extends State<HomeScreen> {
             else
               ..._estanques.map(
                 (e) => Card(
+                  color: e.alertaActiva ? Colors.red.shade50 : null,
                   child: ListTile(
-                    leading: const Icon(Icons.water),
-                    title: Text(e.nombre),
-                    subtitle: Text('${e.tipoAgua} · ${e.estado}'),
+                    leading: Icon(
+                      e.alertaActiva ? Icons.warning_amber_rounded : Icons.water,
+                      color: e.alertaActiva ? Colors.red : null,
+                    ),
+                    title: Text(
+                      e.nombre,
+                      style: e.alertaActiva
+                          ? const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)
+                          : null,
+                    ),
+                    subtitle: Text(
+                      e.alertaActiva
+                          ? '${e.tipoAgua} · ${e.estado} · Alerta activa'
+                          : '${e.tipoAgua} · ${e.estado}',
+                      style: e.alertaActiva ? const TextStyle(color: Colors.red) : null,
+                    ),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () async {
                       await Navigator.push(
