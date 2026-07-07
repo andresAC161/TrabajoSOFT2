@@ -1,10 +1,6 @@
 import '../models/nota_model.dart';
 import 'api_service.dart';
 
-/// HU14 - Registro de observaciones en lote activo.
-/// Consume los endpoints del backend:
-///   GET  /lotes/{loteId}/notas   -> lista de notas del lote
-///   POST /lotes/{loteId}/notas   -> agrega una nota
 class NotaService {
   final ApiService _api = ApiService();
 

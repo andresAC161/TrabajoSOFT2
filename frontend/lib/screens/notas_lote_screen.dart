@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import '../models/nota_model.dart';
 import '../services/nota_service.dart';
 
-/// HU14 - Registro de observaciones en lote activo.
-/// Muestra las observaciones registradas de un lote y permite añadir
-/// nuevas mientras el lote esté activo. Al guardar se registra la fecha
-/// y hora automáticamente (backend). No permite guardar notas vacías.
 class NotasLoteScreen extends StatefulWidget {
   final int loteId;
   final String especie;
