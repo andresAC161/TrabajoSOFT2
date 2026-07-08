@@ -6,6 +6,7 @@ import '../services/estanque_service.dart';
 import '../services/lote_service.dart';
 import '../services/parametro_agua_service.dart';
 import 'editar_estanque_screen.dart';
+import 'historial_crecimiento_screen.dart';
 import 'notas_lote_screen.dart';
 import 'registrar_lote_screen.dart';
 import 'registrar_parametros_screen.dart';
@@ -105,6 +106,18 @@ class _DetalleEstanqueScreenState extends State<DetalleEstanqueScreen> {
     );
   }
 
+  void _abrirCrecimiento(Lote lote) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => HistorialCrecimientoScreen(
+          loteId: lote.id,
+          especie: lote.especie,
+        ),
+      ),
+    );
+  }
+
   Future<void> _eliminar() async {
     final confirmar = await showDialog<bool>(
       context: context,
@@ -190,6 +203,12 @@ class _DetalleEstanqueScreenState extends State<DetalleEstanqueScreen> {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        IconButton(
+                          icon: const Icon(Icons.show_chart),
+                          tooltip: 'Crecimiento',
+                          color: Colors.teal,
+                          onPressed: () => _abrirCrecimiento(l),
+                        ),
                         IconButton(
                           icon: const Icon(Icons.sticky_note_2_outlined),
                           tooltip: 'Notas',
