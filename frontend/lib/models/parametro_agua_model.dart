@@ -8,6 +8,7 @@ class ParametroAgua {
   final String amoniacoMgl;
   final String fechaRegistro;
   final List<String> alertas;
+  final List<String> consejos;
 
   ParametroAgua({
     required this.id,
@@ -19,6 +20,7 @@ class ParametroAgua {
     required this.amoniacoMgl,
     required this.fechaRegistro,
     this.alertas = const [],
+    this.consejos = const [],
   });
 
   factory ParametroAgua.fromJson(Map<String, dynamic> json) => ParametroAgua(
@@ -33,5 +35,8 @@ class ParametroAgua {
         alertas: json['alertas'] == null
             ? []
             : List<String>.from(json['alertas'] as List),
+        consejos: json['consejos'] == null
+            ? []
+            : List<String>.from(json['consejos'] as List),
       );
 }

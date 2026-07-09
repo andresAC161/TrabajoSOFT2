@@ -47,4 +47,20 @@ public class UmbralesAlerta {
             default        -> false;
         };
     }
+
+    public static double[] rangoTemperatura(String especie) {
+        return switch (especie.toLowerCase()) {
+            case "trucha"  -> new double[]{TEMPERATURA_MIN_TRUCHA, TEMPERATURA_MAX_TRUCHA};
+            case "tilapia" -> new double[]{TEMPERATURA_MIN_TILAPIA, TEMPERATURA_MAX_TILAPIA};
+            default        -> null;
+        };
+    }
+
+    public static double[] rangoPh(String especie) {
+        return switch (especie.toLowerCase()) {
+            case "trucha"  -> new double[]{PH_MIN_TRUCHA, PH_MAX_TRUCHA};
+            case "tilapia" -> new double[]{PH_MIN_TILAPIA, PH_MAX_TILAPIA};
+            default        -> null;
+        };
+    }
 }

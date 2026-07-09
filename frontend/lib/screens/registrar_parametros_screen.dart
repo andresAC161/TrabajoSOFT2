@@ -47,7 +47,13 @@ class _RegistrarParametrosScreenState extends State<RegistrarParametrosScreen> {
       if (!mounted) return;
       if (resultado.alertas.isNotEmpty) {
         await _mostrarAlerta(resultado.alertas);
-      } else {
+      }
+      if (!mounted) return;
+      if (resultado.consejos.isNotEmpty) {
+        await _mostrarConsejo(resultado.consejos);
+      }
+      if (!mounted) return;
+      if (resultado.alertas.isEmpty && resultado.consejos.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Parámetros registrados correctamente')),
         );
@@ -89,6 +95,39 @@ class _RegistrarParametrosScreenState extends State<RegistrarParametrosScreen> {
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Entendido'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _mostrarConsejo(List<String> consejos) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: Colors.teal.shade50,
+        title: Row(
+          children: const [
+            Icon(Icons.lightbulb_outline, color: Colors.teal),
+            SizedBox(width: 8),
+            Text('Consejo técnico', style: TextStyle(color: Colors.teal)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: consejos
+              .map((c) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text('• $c', style: const TextStyle(color: Colors.teal)),
+                  ))
+              .toList(),
+        ),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
             onPressed: () => Navigator.pop(context),
             child: const Text('Entendido'),
           ),
