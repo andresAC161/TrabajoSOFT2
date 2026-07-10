@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/tarea_model.dart';
 import '../services/tarea_service.dart';
+import 'editar_tarea_screen.dart';
 
 class TareasScreen extends StatefulWidget {
   final int usuarioId;
@@ -106,6 +107,16 @@ class _TareasScreenState extends State<TareasScreen> {
                             ),
                             title: Text(tarea.nombre),
                             subtitle: Text(tarea.fechaHora),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () async {
+                              final actualizado = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => EditarTareaScreen(tarea: tarea),
+                                ),
+                              );
+                              if (actualizado == true) _cargarTareas();
+                            },
                           );
                         },
                       ),
