@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 public class TareaService {
 
     private final TareaRepository tareaRepository;
+    private final BitacoraService bitacoraService;
 
-    public TareaService(TareaRepository tareaRepository) {
+    public TareaService(TareaRepository tareaRepository, BitacoraService bitacoraService) {
         this.tareaRepository = tareaRepository;
+        this.bitacoraService = bitacoraService;
     }
 
     public TareaRespuestaDTO crear(TareaRegistroDTO dto) {
@@ -35,7 +37,9 @@ public class TareaService {
         tarea.setFechaHora(dto.getFechaHora());
         tarea.setEstado(TareaEstado.pendiente);
         tarea.setNotificado(false);
-        return toDTO(tareaRepository.save(tarea));
+        Tarea guardada = tareaRepository.save(tarea);
+        bitacoraService.registrar(dto.getUsuarioId(), "Programó la tarea '" + guardada.getNombre() + "'");
+        return toDTO(guardada);
     }
 
     public TareaRespuestaDTO actualizar(Long id, TareaEditarDTO dto) {

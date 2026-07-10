@@ -14,10 +14,13 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final BitacoraService bitacoraService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, BCryptPasswordEncoder passwordEncoder,
+                           BitacoraService bitacoraService) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.bitacoraService = bitacoraService;
     }
 
     public UsuarioRespuestaDTO login(LoginDTO dto) {
@@ -50,6 +53,7 @@ public class UsuarioService {
         usuario.setUbicacion(dto.getUbicacion());
         usuario.setFechaRegistro(LocalDateTime.now());
         Usuario guardado = usuarioRepository.save(usuario);
+        bitacoraService.registrar(guardado.getId(), "Registró su cuenta de usuario");
         return new UsuarioRespuestaDTO(
             guardado.getId(), guardado.getNombre(), guardado.getCorreo(),
             guardado.getRol(), guardado.getUbicacion(), guardado.getFechaRegistro()

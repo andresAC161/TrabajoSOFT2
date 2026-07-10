@@ -22,14 +22,17 @@ public class EstanqueService {
     private final LoteRepository loteRepository;
     private final ParametroAguaRepository parametroAguaRepository;
     private final AlertaRepository alertaRepository;
+    private final BitacoraService bitacoraService;
 
     public EstanqueService(EstanqueRepository estanqueRepository, LoteRepository loteRepository,
                             ParametroAguaRepository parametroAguaRepository,
-                            AlertaRepository alertaRepository) {
+                            AlertaRepository alertaRepository,
+                            BitacoraService bitacoraService) {
         this.estanqueRepository = estanqueRepository;
         this.loteRepository = loteRepository;
         this.parametroAguaRepository = parametroAguaRepository;
         this.alertaRepository = alertaRepository;
+        this.bitacoraService = bitacoraService;
     }
 
     public EstanqueRespuestaDTO registrar(EstanqueRegistroDTO dto) {
@@ -44,7 +47,9 @@ public class EstanqueService {
         estanque.setLocalizacion(dto.getLocalizacion());
         estanque.setEstado(EstanqueEstado.disponible);
         estanque.setFechaCreacion(LocalDateTime.now());
-        return toDTO(estanqueRepository.save(estanque));
+        Estanque guardado = estanqueRepository.save(estanque);
+        bitacoraService.registrar(dto.getUsuarioId(), "Registró el estanque '" + guardado.getNombre() + "'");
+        return toDTO(guardado);
     }
 
     public EstanqueRespuestaDTO editar(Long id, EstanqueEditarDTO dto) {
