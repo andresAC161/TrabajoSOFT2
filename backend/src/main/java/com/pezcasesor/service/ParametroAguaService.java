@@ -23,13 +23,19 @@ public class ParametroAguaService {
     private final ParametroAguaRepository parametroAguaRepository;
     private final LoteRepository loteRepository;
     private final AlertaRepository alertaRepository;
+    private final ServicioRecomendaciones servicioRecomendaciones;
+    private final BitacoraService bitacoraService;
 
     public ParametroAguaService(ParametroAguaRepository parametroAguaRepository,
                                  LoteRepository loteRepository,
-                                 AlertaRepository alertaRepository) {
+                                 AlertaRepository alertaRepository,
+                                 ServicioRecomendaciones servicioRecomendaciones,
+                                 BitacoraService bitacoraService) {
         this.parametroAguaRepository = parametroAguaRepository;
         this.loteRepository = loteRepository;
         this.alertaRepository = alertaRepository;
+        this.servicioRecomendaciones = servicioRecomendaciones;
+        this.bitacoraService = bitacoraService;
     }
 
     public ParametroAguaRespuestaDTO registrar(ParametroAguaRegistroDTO dto) {
@@ -44,7 +50,10 @@ public class ParametroAguaService {
         p.setFechaRegistro(LocalDateTime.now());
         ParametroAgua guardado = parametroAguaRepository.save(p);
         List<String> alertas = detectarAnomalias(dto, guardado);
-        return toDTO(guardado, alertas);
+        List<String> consejos = servicioRecomendaciones.evaluarTendencias(dto.getEstanqueId());
+        bitacoraService.registrar(dto.getUsuarioId(),
+            "Registró parámetros de agua" + (alertas.isEmpty() ? "" : " (con alerta)"));
+        return toDTO(guardado, alertas, consejos);
     }
 
     private List<String> detectarAnomalias(ParametroAguaRegistroDTO dto, ParametroAgua parametro) {
@@ -80,7 +89,7 @@ public class ParametroAguaService {
 
     public List<ParametroAguaRespuestaDTO> listarPorEstanque(Long estanqueId) {
         return parametroAguaRepository.findByEstanqueIdOrderByFechaRegistroDesc(estanqueId)
-            .stream().map(p -> toDTO(p, Collections.emptyList())).collect(Collectors.toList());
+            .stream().map(p -> toDTO(p, Collections.emptyList(), Collections.emptyList())).collect(Collectors.toList());
     }
 
     private void validar(ParametroAguaRegistroDTO dto) {
@@ -99,11 +108,11 @@ public class ParametroAguaService {
         }
     }
 
-    private ParametroAguaRespuestaDTO toDTO(ParametroAgua p, List<String> alertas) {
+    private ParametroAguaRespuestaDTO toDTO(ParametroAgua p, List<String> alertas, List<String> consejos) {
         return new ParametroAguaRespuestaDTO(
             p.getId(), p.getEstanqueId(), p.getUsuarioId(),
             p.getPh(), p.getTemperaturaC(), p.getOxigenoMgl(),
-            p.getAmoniacoMgl(), p.getFechaRegistro(), alertas
+            p.getAmoniacoMgl(), p.getFechaRegistro(), alertas, consejos
         );
     }
 }

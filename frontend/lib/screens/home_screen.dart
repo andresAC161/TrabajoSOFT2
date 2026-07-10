@@ -7,6 +7,8 @@ import '../services/estanque_service.dart';
 import '../services/notificacion_service.dart';
 import 'bienvenida_screen.dart';
 import 'detalle_estanque_screen.dart';
+import 'guias_screen.dart';
+import 'historial_screen.dart';
 import 'notificaciones_screen.dart';
 import 'programar_tarea_screen.dart';
 import 'registrar_estanque_screen.dart';
@@ -215,6 +217,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 MaterialPageRoute(
                   builder: (_) => TareasScreen(usuarioId: widget.usuario.id),
                 ),
+              ),
+            ),
+            _MenuTile(
+              icon: Icons.menu_book,
+              label: 'Guías técnicas',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const GuiasScreen()),
+              ),
+            ),
+            _MenuTile(
+              icon: Icons.receipt_long,
+              label: 'Historial de actividades',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const HistorialScreen()),
               ),
             ),
             if (_estanques.isNotEmpty) ...[
