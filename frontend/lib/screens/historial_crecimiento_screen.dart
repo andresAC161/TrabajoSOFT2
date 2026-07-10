@@ -48,7 +48,9 @@ class _HistorialCrecimientoScreenState extends State<HistorialCrecimientoScreen>
     final pesoCtrl = TextEditingController();
     final tallaCtrl = TextEditingController();
     final mortalidadCtrl = TextEditingController();
-    String? error;
+    String? errorPeso;
+    String? errorTalla;
+    String? errorMortalidad;
 
     await showDialog<void>(
       context: context,
@@ -62,21 +64,27 @@ class _HistorialCrecimientoScreenState extends State<HistorialCrecimientoScreen>
                 children: [
                   TextField(
                     controller: pesoCtrl,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                     decoration: InputDecoration(
                       labelText: 'Peso promedio (g) *',
-                      errorText: error,
+                      errorText: errorPeso,
                     ),
                   ),
                   TextField(
                     controller: tallaCtrl,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    decoration: const InputDecoration(labelText: 'Talla (cm)'),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+                    decoration: InputDecoration(
+                      labelText: 'Talla (cm)',
+                      errorText: errorTalla,
+                    ),
                   ),
                   TextField(
                     controller: mortalidadCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Mortalidad (peces)'),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true),
+                    decoration: InputDecoration(
+                      labelText: 'Mortalidad (peces)',
+                      errorText: errorMortalidad,
+                    ),
                   ),
                 ],
               ),
@@ -89,8 +97,21 @@ class _HistorialCrecimientoScreenState extends State<HistorialCrecimientoScreen>
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
                   onPressed: () async {
                     final peso = double.tryParse(pesoCtrl.text.trim());
-                    if (peso == null || peso <= 0) {
-                      setDialogState(() => error = 'Ingrese un peso válido');
+                    final tallaTexto = tallaCtrl.text.trim();
+                    final talla = tallaTexto.isEmpty ? null : double.tryParse(tallaTexto);
+                    final mortalidadTexto = mortalidadCtrl.text.trim();
+                    final mortalidad = mortalidadTexto.isEmpty ? null : int.tryParse(mortalidadTexto);
+
+                    setDialogState(() {
+                      errorPeso = (peso == null || peso <= 0) ? 'Ingrese un peso válido' : null;
+                      errorTalla = (tallaTexto.isNotEmpty && (talla == null || talla <= 0))
+                          ? 'Ingrese una talla válida'
+                          : null;
+                      errorMortalidad = (mortalidadTexto.isNotEmpty && (mortalidad == null || mortalidad < 0))
+                          ? 'La mortalidad no puede ser negativa'
+                          : null;
+                    });
+                    if (errorPeso != null || errorTalla != null || errorMortalidad != null) {
                       return;
                     }
                     Navigator.pop(dialogContext);

@@ -19,6 +19,12 @@ public class RegistroCrecimientoService {
         if (registro.getPesoPromedioG() == null || registro.getPesoPromedioG().signum() <= 0) {
             throw new IllegalArgumentException("El peso promedio debe ser mayor a 0.");
         }
+        if (registro.getTallaCm() != null && registro.getTallaCm().signum() <= 0) {
+            throw new IllegalArgumentException("La talla debe ser mayor a 0.");
+        }
+        if (registro.getMortalidad() != null && registro.getMortalidad() < 0) {
+            throw new IllegalArgumentException("La mortalidad no puede ser negativa.");
+        }
         if (registro.getFechaMuestreo() == null) {
             registro.setFechaMuestreo(LocalDate.now());
         }
