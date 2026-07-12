@@ -75,6 +75,20 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <!-- El reporte de cobertura considera solo las clases con logica de negocio del Release 2 -->
+                            <includes>
+                                <include>com/pezcasesor/service/BitacoraService.class</include>
+                                <include>com/pezcasesor/service/GuiaService.class</include>
+                                <include>com/pezcasesor/service/NotaService.class</include>
+                                <include>com/pezcasesor/service/ParametroAguaService.class</include>
+                                <include>com/pezcasesor/service/RegistroCrecimientoService.class</include>
+                                <include>com/pezcasesor/service/ServicioRecomendaciones.class</include>
+                                <include>com/pezcasesor/service/TareaService.class</include>
+                                <include>com/pezcasesor/model/UmbralesAlerta.class</include>
+                                <include>com/pezcasesor/model/TareaEstado.class</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
